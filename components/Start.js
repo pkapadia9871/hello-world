@@ -1,55 +1,39 @@
-import { useState } from 'react';
-import { StyleSheet, View, Text, Button, TextInput, ImageBackground, TouchableOpacity} from 'react-native';
+import { useState } from "react";
+import { StyleSheet, Text, TextInput, View, Button } from "react-native";
+
 
 const Start = ({ navigation }) => {
   const [name, setName] = useState('');
 
-  const [count, setCount] = useState(0);
-  const onPress = () => setCount(prevCount => prevCount + 1);
-
   return (
-    <ImageBackground source={require('../assets/icon.png')} resizeMode="cover" style={styles.image}>
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={onPress}></TouchableOpacity>
-      <Text>Hello Start!</Text>
-      <TextInput
-        style={styles.textInput}
-        value={name}
-        onChangeText={setName}
-        placeholder='Type your username here'
-      />
-      <Button
-        title="Go to Chat"
-        onPress={() => navigation.navigate('Chat', { name: name})}
-      />
-    </View>
-    </ImageBackground>
+        <Text>Hello Screen1!</Text>
+        <TextInput
+          style={styles.nameTextInput}
+          onChangeText={setName}
+          value={name}
+          placeholder="Type here ..."
+        />
+        <Button
+          title="Go to Chat"
+          onPress={() =>
+            navigation.navigate("Chat", { name })
+          }
+        />
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center"
   },
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  textInput: {
-    width: "88%",
-    padding: 15,
-    borderWidth: 1,
-    marginTop: 15,
-    marginBottom: 15,
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10,
-    borderRadius: 50/2
-  },
+  nameTextInput: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1
+  }
 });
 
 export default Start;
