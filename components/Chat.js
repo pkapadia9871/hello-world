@@ -65,6 +65,7 @@ const Chat = ({ route, navigation, db }) => {
 
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
+      <View style={styles.GiftedChatContainer}>
       <GiftedChat
         messages={messages}
         renderBubble={renderBubble}
@@ -76,14 +77,22 @@ const Chat = ({ route, navigation, db }) => {
       />
       {Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null}
     </View>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    overflow: "hidden",
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  GiftedChatContainer: {
+    flex: 1,
+    width: '90%',
+    paddingBottom: 20,
+    justifyContent: 'center'
   }
 });
 
