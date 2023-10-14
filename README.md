@@ -24,7 +24,7 @@ If you are using your own Firestore and Firebase, configure the credentials to y
 
 Run `npm install` for all these libraries:
 
--react-native
--react-native-gifted-chat
--expo
--firebase
+- react-native
+- react-native-gifted-chat
+- expo
+- firebase
