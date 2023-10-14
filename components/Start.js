@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, Text, TextInput, View, Button, ImageBackground, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TextInput, View, Button, ImageBackground, TouchableOpacity, Alert } from "react-native";
 
 import { getAuth, signInAnonymously } from "firebase/auth";
 
@@ -14,7 +14,7 @@ const Start = ({ navigation }) => {
   const signInUser = () => {
     signInAnonymously(auth)
       .then(result => {
-        navigation.navigate("Chat", { userID: result.user.uid/*,
+        navigation.navigate("Chat", { userID: result.user.uid /*,
                                     name: name,
                                     color: color,
                                     background: background*/ });

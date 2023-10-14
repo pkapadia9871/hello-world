@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import { StyleSheet, View, Platform, KeyboardAvoidingView, Text } from 'react-native';
 import { Bubble, GiftedChat, InputToolbar } from "react-native-gifted-chat";
 import { collection, addDoc, onSnapshot, query, where, orderBy } from "firebase/firestore";
+import CustomActions from './CustomActions';
+import * as Location from 'expo-location';
+import MapView from 'react-native-maps';
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Chat = ({ route, navigation, db, isConnected }) => {
+const Chat = ({ route, navigation, db, isConnected, storage }) => {
   const [messages, setMessages] = useState([]);
   const { name, user, color, background } = route.params;
 
@@ -74,6 +77,32 @@ const Chat = ({ route, navigation, db, isConnected }) => {
     />
   }
 
+  const renderCustomActions = (props) => {
+    return <CustomActions storage={storage} {...props} />
+  };
+
+  const renderCustomView = (props) => {
+    const { currentMessage} = props;
+    if (currentMessage.location) {
+      return (
+          <MapView
+            style={{width: 150,
+              height: 100,
+              borderRadius: 13,
+              margin: 3}}
+            region={{
+              latitude: currentMessage.location.latitude,
+              longitude: currentMessage.location.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+      );
+    }
+    return null;
+  }
+  
+
   return (
     <View style={[styles.container, { backgroundColor: background }]}>
       <View style={styles.GiftedChatContainer}>
@@ -81,6 +110,8 @@ const Chat = ({ route, navigation, db, isConnected }) => {
           messages={messages}
           renderInputToolbar={renderInputToolbar}
           renderBubble={renderBubble}
+          renderActions={renderCustomActions}
+          renderCustomView={renderCustomView}
           onSend={messages => onSend(messages)}
           user={{
             _id: 1,
